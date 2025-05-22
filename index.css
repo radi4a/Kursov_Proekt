@@ -4,59 +4,289 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
+
+header {
+  background-color: black;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 10px;
+  height: 40px;
+  
+}
+
+#quizStartModal, #quizModal {
+  display: none;
+  position: fixed;
+  z-index: 9999;  /* Висок z-index за прозореца за старт */
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Модален прозорец за съдържание */
+.mod {
+  background-image: linear-gradient(to bottom right,#04748c, cyan, lightblue);
+  margin: auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Анимация за плавно появяване на модала */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Прозорец с отговори и бутони */
+#quizContent button {
+  border: black;
+  font-size: 16px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  width: 100%; /* Равна ширина за всички бутони */
+  box-sizing: border-box;
+  margin: 10px 0;
+}
+
+#quizContent button.correct {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#quizContent button.incorrect {
+  background-color: #f44336;
+  color: white;
+}
+
+#quizContent button:hover {
+  transform: scale(1.05);
+}
+
+#nextBtn, #startBtn {
+  border: none;
+  font-size: 18px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  width: 200px;
+  background-color: #007BFF;
+  color: white;
+  margin-top: 20px;
+}
+
+#nextBtn:hover, #startBtn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.answer-btn {
+  background-color: white;  /* Не прозрачен фон (можете да промените на желан цвят) */
+  color: black;               /* Текстът да е бял */
+  border-style: 7px solid black;               /* Без бордер */
+  padding: 10px 20px;         /* Отстояния около текста */
+  font-size: 16px;            /* Размер на текста */
+  cursor: pointer;           /* Ръка при задържане */
+  border-radius: 5px;         /* Закръглени ъгли на бутона */
+  opacity: 1;                 /* Без прозрачност (стойността по подразбиране на opacity е 1) */
+  transition: background-color 0.3s ease; /* Плавен преход при смяна на фона */
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3); /* Лека сянка, малко дълбочина */
+  
+}
+
+
+.fade-in-text {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: xx-large;
+  color: white;
+  animation: fadeInRight 2s ease-out forwards; /* Анимация, която ще се стартира веднага */
+}
+
+/* Анимацията за fade-in и движение от ляво на дясно */
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-200%); /* Начална позиция извън екрана отляво */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Завършва на нормалната си позиция */
+  }
+}
+
+header h3 {
+  text-align: center;
+  z-index: 1;
+  margin-left: auto;
+  padding-right: 20px;
+  color: white;
+}
+
+#introModal {
+  display: block;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  
+}
+
+#introContent {
+  background-image: linear-gradient(to bottom right,#04748c, cyan, lightblue,white);
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center;
+  border:#000;
+  border-style: ridge;
+}
+
+#introContent button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#introContent button:hover {
+  background-color: #0056b3;
+}
+
+
+#reset-btn {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1000;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+#reset-btn:hover {
+  background-color: #125aa2;
+}
+
+#test-btn {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 1000;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+#test-btn:hover {
+  background-color: #125aa2;
+}
+
+#map-image{
+  z-index: 1;
+  position: relative;
+}
+
 
 #EU {
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: white;
+  background-image: linear-gradient(to top right,#04748c, cyan, lightblue,white);
 }
 
 #EU svg {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
+  margin-top: 30px;
   display: block;
+  transform-origin: 0 0; /* важно за zoom към курсора */
+  user-select: none;
+  transition: transform 1s ease;
+  transform-origin: top left;
+  z-index: -1;
+  
+  
+}
+
+#map-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  overscroll-behavior: none;
+}
+
+#map-container:active {
+  cursor: grabbing;
 }
 
 path {
+  fill: lightgreen;
   stroke: black; /* Контурът */
-  stroke-width: 0.4;
+  stroke-width: 0.5;
+  stroke-dasharray: 5, 1, 1, 3;
+  border: dashed;
   transition: 0.3s;
   position: relative; /* За да може да се добавят псевдоелементи */
 }
 
 /* При hover променяме цвета на държавата */
 path:hover {
-  fill: crimson;
+  fill: green;
   cursor: pointer;
 }
 
-/* България - показваме флаг при hover */
-#BG {
-  stroke: black; /* Контурът на България */
-  stroke-width: 0.4;
-  position: relative; /* Нужно е за псевдоелемента */
-  width: 100%;
-  height: 100%;
-  -webkit-mask-image: url("bgFlag.png");
-  mask-image: url("bgFlag.png");
-}
 
-/* Когато мишката е върху България, ще добавим флага */
-#BG:hover {
-  fill: black;
-}
 
 #flag-tooltip {
   display: none;
   position: absolute;
-  border: 1px solid #ccc;
-  background: #fff;
-  padding: 4px;
+  padding: 5px;
   border-radius: 4px;
   z-index: 1000;
   pointer-events: none;
@@ -66,6 +296,8 @@ path:hover {
 #flag-tooltip img {
   width: 60px;
   height: auto;
+  border: 1px solid black;
+  
 }
 
 .modal {
@@ -84,11 +316,26 @@ path:hover {
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-image: linear-gradient(to bottom left,#04748c, cyan, lightblue,white);
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 260px;
+  height: 230px;
+  border-radius: 10px;
+  text-align: center;
+  
+}
+/*Flag in the modal content*/
+#modal-flag {
+  height: 90px;
+  display: flex;
+  margin: auto; 
+ 
+}
+
+#capital {
+  margin-right: 45px;
 }
 
 /* The Close Button */
